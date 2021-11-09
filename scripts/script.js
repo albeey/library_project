@@ -15,21 +15,19 @@ function Book(title, author, pages, read) {
   this.cover = generateCover();
 }
 
-function addBookToLibrary() {
-  const title = prompt("Enter book title: ");
-  const author = prompt("Enter book author: ")
-  const pages = +prompt("Enter number of pages: ")
-  const read =  prompt("Have you finished reading this book?").toLowerCase();
+function addBookToLibrary(entry) {
+  const read = entry["book-status"] === "read";
 
-  const newBook = new Book(title, author, pages, read)
+  const newBook = new Book(entry["book-title"], entry["book-author"], entry["book-pages"], read)
   myLibrary.push(newBook);
+
   updateLibrary();
 }
 
 function updateLibrary() {
   myLibrary.forEach(book => {
     const currentTitles = getDisplayedTitles();
-    console.log(currentTitles)
+    // console.log(currentTitles)
 
     if (!currentTitles.includes(book.title)) displayBook(book);
   })
@@ -98,4 +96,53 @@ function generateRgbColor() {
   }
   
   return rgb
+}
+
+// MODAL
+// Get the modal
+const modal = document.querySelector("#myModal");
+
+// Get the button that opens the modal
+const addBookButton = document.querySelector(".add-book-bttn");
+
+// Get the <span> element that closes the modal
+const closeModalButton = document.querySelector(".close");
+
+// When the user clicks on the button, open the modal
+addBookButton.addEventListener("click", () => modal.style.display = "block")
+
+// When the user clicks on <span> (x), close the modal
+closeModalButton.addEventListener("click", closeModal);
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+// }
+
+// FORM
+const form = document.forms[0];
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+  const formData = new FormData(this);
+  const entries = formData.entries();
+  const data = Object.fromEntries(entries);
+
+  addBookToLibrary(data);
+  clearForm();
+  closeModal();
+});
+
+function clearForm() {
+  const inputField = document.querySelectorAll(".input-field");
+  inputField.forEach(input => input.value = "")
+
+  const inputSelect = document.querySelector(".input-select");
+  inputSelect.selectedIndex = 0;
 }
