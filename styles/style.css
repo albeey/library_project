@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #ececec;
+  display: flex;
+  justify-content: center;
+  font-family: "cormorant garamond", sans-serif;
+}
+
+#content {
+  background-color: #fff;
+  padding: 15px;
+  width: 1060px;
+}
+
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px 30px 15px;
+}
+
+.add-bttn {
+  height: 50px;
+  width: 256px;
+  font-family: "josefin sans" ,sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  color: #999;
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+}
+
+.add-bttn:hover {
+  color: #555;
+}
+
+ul.book-list {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+li.book {
+  width: 235px;
+  padding: 0 15px;
+}
+
+.book-cover {
+  background-color: teal;
+  width: inherit;
+  height: 325px;
+}
+
+.book-info {
+  margin: 21px 0 37px;
+}
+
+.author {
+  font-size: 12px;
+  font-family: "josefin sans", sans-serif;
+  letter-spacing: .35em;
+  color: #999;
+  line-height: 17px;
+}
+
+.title {
+  margin: 3px 0;
+  color: #000;
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 1.19em;
+}
+
+.pages {
+  line-height: 1;
+  color: #343434;
+  font-size: 19px;
+  margin: 7px 0 0;
+}
