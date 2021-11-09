@@ -66,6 +66,7 @@ li.book {
   letter-spacing: .35em;
   color: #999;
   line-height: 17px;
+  text-transform: uppercase;
 }
 
 .title {
