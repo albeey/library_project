@@ -1,4 +1,11 @@
-let myLibrary = [];
+const book1 = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 223, true);
+const book2 = new Book("Harry Potter and the Chamber of Secrets", "J. K. Rowling", 251, false);
+const book3 = new Book("Harry Potter and the Prisoner of Azkaban", "J. K. Rowling", 317, false);
+const book4 = new Book("Harry Potter and the Goblet of Fire", "J. K. Rowling", 636, true);
+
+let myLibrary = [book1, book2, book3, book4];
+
+updateLibrary()
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -9,18 +16,28 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary() {
-  return
+  const title = prompt("Enter book title: ");
+  const author = prompt("Enter book author: ")
+  const pages = +prompt("Enter number of pages: ")
+  const read =  prompt("Have you finished reading this book?").toLowerCase();
+
+  const newBook = new Book(title, author, pages, read)
+  myLibrary.push(newBook);
+  updateLibrary();
 }
 
 function updateLibrary() {
-  // const booksInDom = document.querySelectorAll(".title");
-
-  // if (booksInDom) console.log("empty")
-
   myLibrary.forEach(book => {
-    
-    displayBook(book)
-  });
+    const currentTitles = getDisplayedTitles();
+    console.log(currentTitles)
+
+    if (!currentTitles.includes(book.title)) displayBook(book);
+  })
+}
+
+function getDisplayedTitles() {
+  const books = document.querySelectorAll(".title");
+  return Array.from(books).map(book => book.textContent)
 }
 
 // Create book on DOM
@@ -69,29 +86,16 @@ function generateCover() {
   color1 = generateRgbColor().join(", ");
   color2 = generateRgbColor().join(", ");
 
-  return `radial-gradient(ellipse at top, rgb(${color1}), transparent), radial-gradient(ellipse at bottom, rgb(${color2}), transparent)`
+  return `radial-gradient(ellipse at top, rgb(${color1}), transparent), radial-gradient(ellipse at bottom, rgb(${color2}), transparent)`;
 }
 
 function generateRgbColor() {
-  rgb = []
+  rgb = [];
 
   for (let i = 0; i < 3; i++) {
-    color = Math.floor(Math.random() * (255 - 0 + 1) + 0) // generates a random num between 0-255
-    rgb.push(color)
+    color = Math.floor(Math.random() * (255 - 0 + 1) + 0); // generates a random num between 0-255
+    rgb.push(color);
   }
   
   return rgb
 }
-
-const book1 = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 223, true);
-const book2 = new Book("Harry Potter and the Chamber of Secrets", "J. K. Rowling", 251, false);
-const book3 = new Book("Harry Potter and the Prisoner of Azkaban", "J. K. Rowling", 317, false);
-const book4 = new Book("Harry Potter and the Goblet of Fire", "J. K. Rowling", 636, true);
-
-myLibrary.push(book1)
-myLibrary.push(book2)
-myLibrary.push(book3)
-myLibrary.push(book4)
-
-myLibrary.forEach((book) => console.log(book))
-updateLibrary()
