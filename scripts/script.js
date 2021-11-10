@@ -27,7 +27,6 @@ function addBookToLibrary(entry) {
 function updateLibrary() {
   myLibrary.forEach(book => {
     const currentTitles = getDisplayedTitles();
-    // console.log(currentTitles)
 
     if (!currentTitles.includes(book.title)) displayBook(book);
   })
@@ -80,7 +79,7 @@ function displayBook(book) {
 
 // Cover
 function generateCover() {
-  // Generates radial-gradient from random rgb values to use as cover placeholder
+  // Generates radial-gradient from random rgb values to use as placeholder for the cover art
   color1 = generateRgbColor().join(", ");
   color2 = generateRgbColor().join(", ");
 
@@ -99,31 +98,17 @@ function generateRgbColor() {
 }
 
 // MODAL
-// Get the modal
 const modal = document.querySelector("#myModal");
 
-// Get the button that opens the modal
 const addBookButton = document.querySelector(".add-book-bttn");
+addBookButton.addEventListener("click", () => modal.style.display = "block");
 
-// Get the <span> element that closes the modal
 const closeModalButton = document.querySelector(".close");
-
-// When the user clicks on the button, open the modal
-addBookButton.addEventListener("click", () => modal.style.display = "block")
-
-// When the user clicks on <span> (x), close the modal
 closeModalButton.addEventListener("click", closeModal);
 
 function closeModal() {
   modal.style.display = "none";
 }
-
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
 
 // FORM
 const form = document.forms[0];
@@ -141,7 +126,7 @@ form.addEventListener("submit", function(event) {
 
 function clearForm() {
   const inputField = document.querySelectorAll(".input-field");
-  inputField.forEach(input => input.value = "")
+  inputField.forEach(input => input.value = "");
 
   const inputSelect = document.querySelector(".input-select");
   inputSelect.selectedIndex = 0;

@@ -23,19 +23,29 @@ body {
   padding: 0 15px 30px 15px;
 }
 
-.add-book-bttn {
+.add-book-bttn, .submit-book {
   height: 50px;
-  width: 256px;
   font-family: "josefin sans" ,sans-serif;
-  font-weight: 300;
   font-size: 17px;
-  color: #999;
-  background-color: #fff;
-  border: 1px solid #e1e1e1;
+  text-transform: uppercase;
+  letter-spacing: .35em;
+  font-weight: 400;
+  background-color: #d14031;
+  color: #fff;
+  border: 1px solid transparent;
 }
 
-.add-book-bttn:hover {
-  color: #555;
+.add-book-bttn {
+  width: 256px;
+}
+
+.submit-book {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.submit-book:hover, .add-book-bttn:hover {
+  background-color: #ad362a;
 }
 
 ul.book-list {
@@ -85,8 +95,6 @@ li.book {
 }
 
 /* MODAL */
-
-/* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -106,20 +114,44 @@ li.book {
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  /* width: 50%;  */
   width: 560px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* The Close Button */
 .close {
   color: #aaa;
-  /* float: right; */
-  font-size: 28px;
+  font-size: 35px;
   font-weight: bold;
+  align-self: flex-end;
+  margin: -21px 0;
+  z-index: 10;
 }
 
 .close:hover,
 .close:focus {
   color: black;
   cursor: pointer;
+}
+
+/* FORM */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field, .input-select {
+  padding: 10px;
+  font-family: "josefin sans" ,sans-serif;
+  font-size: 17px;
+  color: #999;
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+  font-weight: 300;
+}
+
+label {
+  font-size: 19px;
+  padding: 10px 0;
 }
