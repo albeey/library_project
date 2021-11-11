@@ -2,10 +2,11 @@ const book1 = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowlin
 const book2 = new Book("Harry Potter and the Chamber of Secrets", "J. K. Rowling", 251, false);
 const book3 = new Book("Harry Potter and the Prisoner of Azkaban", "J. K. Rowling", 317, false);
 const book4 = new Book("Harry Potter and the Goblet of Fire", "J. K. Rowling", 636, true);
+const book5 = new Book("Harry Potter and the Order of the Phoenix", "J. K. Rowling", 	766, false);
 
-let myLibrary = [book1, book2, book3, book4];
+let myLibrary = [book1, book2, book3, book4, book5];
 
-updateLibrary()
+updateLibrary();
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -21,20 +22,16 @@ function addBookToLibrary(entry) {
   const newBook = new Book(entry["book-title"], entry["book-author"], entry["book-pages"], read)
   myLibrary.push(newBook);
 
-  updateLibrary();
+  displayBook(newBook);
 }
 
 function updateLibrary() {
+  const bookList = document.querySelector(".book-list");
+  bookList.textContent = "";
+
   myLibrary.forEach(book => {
-    const currentTitles = getDisplayedTitles();
-
-    if (!currentTitles.includes(book.title)) displayBook(book);
-  })
-}
-
-function getDisplayedTitles() {
-  const books = document.querySelectorAll(".title");
-  return Array.from(books).map(book => book.textContent)
+    displayBook(book);
+  });
 }
 
 // Create book on DOM
@@ -44,14 +41,29 @@ function displayBook(book) {
 
   // Create list item
   const li = document.createElement("li");
+  li.dataset.bookIndex = myLibrary.indexOf(book);
   li.classList.add("book");
-  ul.appendChild(li)
+  ul.appendChild(li);
   
   // Create book-cover div
   const bookCover = document.createElement("div");
   bookCover.classList.add("book-cover");
   bookCover.style.background = book.cover;
   li.appendChild(bookCover);
+
+  // // Buttons Container
+  // const coverButtonsContainer = document.createElement("div");
+  // coverButtonsContainer.classList.add("book-buttons-container");
+  // bookCover.appendChild(coverButtonsContainer);
+
+  // Remove button
+  const removeButton = document.createElement("button");
+  removeButton.textContent = "remove";
+  removeButton.classList.add("remove-button");
+  removeButton.dataset.bookIndex = myLibrary.indexOf(book);
+  removeButton.addEventListener("click", removeBook);
+  // coverButtonsContainer.appendChild(removeButton)
+  bookCover.appendChild(removeButton);
 
   // Create book-info div
   const bookInfo = document.createElement("div");
@@ -75,6 +87,13 @@ function displayBook(book) {
   pages.classList.add("pages");
   pages.textContent = book.pages + " pages";
   bookInfo.appendChild(pages);
+}
+
+function removeBook() {
+  const removeBookAtIndex = this.dataset.bookIndex;
+
+  myLibrary.splice(removeBookAtIndex, 1);
+  updateLibrary();
 }
 
 // Cover

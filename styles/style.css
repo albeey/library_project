@@ -16,6 +16,8 @@ body {
   width: 1060px;
 }
 
+/* HEADER */
+
 #header {
   display: flex;
   align-items: center;
@@ -48,12 +50,16 @@ body {
   background-color: #ad362a;
 }
 
+/* LIBRARY CONTAINER */
+
 ul.book-list {
   list-style-type: none;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
+
+/* BOOK */
 
 li.book {
   width: 235px;
@@ -64,6 +70,22 @@ li.book {
   background-color: teal;
   width: inherit;
   height: 325px;
+}
+
+.book-cover button{
+  background-color: #d14031;
+  /* width: 75px; */
+  height: 30px;
+  letter-spacing: .35em;
+  font-family: "Josefin Sans",sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 33px;
+  padding: 0 16px;
+  border: 0;
+  position: relative;
+  /* top: 100px; */
 }
 
 .book-info {
@@ -95,20 +117,15 @@ li.book {
 }
 
 /* MODAL */
+
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  display: none;
+  position: fixed;
+  width: 100%; 
+  height: 100%; 
+  background-color: rgba(0,0,0,0.4); 
 }
 
-/* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
@@ -119,7 +136,6 @@ li.book {
   flex-direction: column;
 }
 
-/* The Close Button */
 .close {
   color: #aaa;
   font-size: 35px;
@@ -136,6 +152,7 @@ li.book {
 }
 
 /* FORM */
+
 form {
   display: flex;
   flex-direction: column;
