@@ -1,12 +1,10 @@
 const book1 = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 223, true);
-const book2 = new Book("Harry Potter and the Chamber of Secrets", "J. K. Rowling", 251, false);
+const book2 = new Book("Harry Potter and the Chamber of Secrets", "J. K. Rowling", 251, true);
 const book3 = new Book("Harry Potter and the Prisoner of Azkaban", "J. K. Rowling", 317, false);
-const book4 = new Book("Harry Potter and the Goblet of Fire", "J. K. Rowling", 636, true);
+const book4 = new Book("Harry Potter and the Goblet of Fire", "J. K. Rowling", 636, false);
 const book5 = new Book("Harry Potter and the Order of the Phoenix", "J. K. Rowling", 	766, false);
 
 let myLibrary = [book1, book2, book3, book4, book5];
-
-updateLibrary();
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -16,10 +14,6 @@ function Book(title, author, pages, read) {
   this.cover = generateCover();
 }
 
-Book.prototype.changeStatus = function() {
-  this.read = !this.read;
-}
-
 function addBookToLibrary(entry) {
   const read = entry["book-status"] === "read";
 
@@ -27,6 +21,7 @@ function addBookToLibrary(entry) {
   myLibrary.push(newBook);
 
   displayBook(newBook);
+  updateLibrary();
 }
 
 function updateLibrary() {
@@ -36,6 +31,8 @@ function updateLibrary() {
   myLibrary.forEach(book => {
     displayBook(book);
   });
+
+  saveData();
 }
 
 // Create book on DOM
@@ -64,11 +61,9 @@ function displayBook(book) {
 
   // Book status button
   const statusButton = document.createElement("button");
-  const bookStatus = book.read ? ["read", "unread"] : ["not read", "read"];
-  statusButton.innerHTML = `${bookStatus[0]}<span class="tooltiptext">mark as ${bookStatus[1]}</span>`;
+  statusButton.textContent = book.read ? "read" : "not read";
   statusButton.style.backgroundColor = !book.read ? "var(--blue-color)" : "";
   statusButton.classList.add("status-button");
-  statusButton.classList.add("tooltip"); //
   statusButton.dataset.bookIndex = bookIndex;
   statusButton.addEventListener("click", chageBookStatus);
   coverButtonsContainer.appendChild(statusButton);
@@ -115,12 +110,11 @@ function removeBook() {
 function chageBookStatus() {
   const bookIdx = this.dataset.bookIndex;
   const currentStatus = myLibrary[bookIdx].read
-  
-  this.style.backgroundColor = (currentStatus) ? "var(--blue-color)" : "var(--green-color)";
-  const bookStatus = currentStatus ? ["read", "unread"] : ["not read", "read"];
-  this.innerHTML = `${bookStatus[0]}<span class="tooltiptext">mark as ${bookStatus[1]}</span>`;
 
-  myLibrary[bookIdx].changeStatus();
+  this.style.backgroundColor = (currentStatus) ? "var(--blue-color)" : "var(--green-color)";
+  this.textContent = currentStatus ? "read" : "read";
+
+  myLibrary[bookIdx].read = !myLibrary[bookIdx].read;
   
   updateLibrary();
 }
@@ -128,10 +122,8 @@ function chageBookStatus() {
 // Cover
 function generateCover() {
   // Generates radial-gradient from random rgb values to use as placeholder for the cover art
-  color1 = generateRgbColor().join(", ");
-  color2 = generateRgbColor().join(", ");
-
-  return `radial-gradient(ellipse at top, rgb(${color1}), transparent), radial-gradient(ellipse at bottom, rgb(${color2}), transparent)`;
+  colors = [generateRgbColor().join(", "), generateRgbColor().join(", ")];
+  return `radial-gradient(ellipse at top, rgb(${colors[0]}), transparent), radial-gradient(ellipse at bottom, rgb(${colors[1]}), transparent)`;
 }
 
 function generateRgbColor() {
@@ -179,3 +171,20 @@ function clearForm() {
   const inputSelect = document.querySelector(".input-select");
   inputSelect.selectedIndex = 0;
 }
+
+// WEB STORAGE API
+
+function saveData() {
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+}
+
+function getData() {
+  if(localStorage.myLibrary) {
+    let objStr = localStorage.getItem("myLibrary");
+    myLibrary = JSON.parse(objStr);
+  }
+
+  updateLibrary();
+}
+
+getData();

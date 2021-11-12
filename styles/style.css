@@ -111,6 +111,7 @@ li.book {
 
 .book-info {
   margin: 21px 0 37px;
+  width: inherit;
 }
 
 .author {
@@ -192,39 +193,4 @@ form {
 label {
   font-size: 19px;
   padding: 10px 0;
-}
-
-/* STATUS BUTTON TOOLTIP */
-
-.tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: rgba(0, 0, 0, .5);
-  color: #fff;
-  border-radius: 6px;
-  position: absolute;
-  z-index: 1;
-  top: -1px;
-  left: 46%;
-  font-size: 8px;
-  letter-spacing: 2px;
-
-  opacity: 0;
-  transition: opacity 1s;
-}
-
-.tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 100%;
-  margin-top: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent rgba(0, 0, 0, .5) transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
 }
