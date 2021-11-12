@@ -16,10 +16,16 @@ body {
   font-family: "cormorant garamond", sans-serif;
 }
 
+button {
+  cursor: pointer;
+}
+
 #content {
   background-color: #fff;
   padding: 15px;
   width: 1060px;
+  display: inline-flex;
+  flex-direction: column;
 }
 
 /* HEADER */
@@ -36,11 +42,11 @@ body {
   font-family: "josefin sans" ,sans-serif;
   font-size: 17px;
   text-transform: uppercase;
-  letter-spacing: .35em;
+  letter-spacing: 5.6px;
   font-weight: 400;
   background-color: var(--red-color);
   color: #fff;
-  border: 1px solid transparent;
+  border: 0px;
 }
 
 .add-book-bttn {
@@ -52,14 +58,13 @@ body {
   margin-top: 20px;
 }
 
-.submit-book:hover, .add-book-bttn:hover {
+.submit-book:hover, .add-book-bttn:hover, .remove-button:hover {
   background-color: #ad362a;
-  cursor: pointer;
 }
 
 /* LIBRARY CONTAINER */
 
-ul.book-list {
+.book-list {
   list-style-type: none;
   display: flex;
   justify-content: center;
@@ -98,7 +103,6 @@ li.book {
   color: #fff;
   line-height: 33px;
   border: 0;
-  cursor: pointer;
 }
 
 .remove-button {
@@ -107,6 +111,10 @@ li.book {
 
 .status-button {
   background-color: var(--green-color);
+}
+
+.status-button:hover {
+  background-color: #54ad2a;
 }
 
 .book-info {

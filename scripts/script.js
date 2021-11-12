@@ -2,9 +2,8 @@ const book1 = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowlin
 const book2 = new Book("Harry Potter and the Chamber of Secrets", "J. K. Rowling", 251, true);
 const book3 = new Book("Harry Potter and the Prisoner of Azkaban", "J. K. Rowling", 317, false);
 const book4 = new Book("Harry Potter and the Goblet of Fire", "J. K. Rowling", 636, false);
-const book5 = new Book("Harry Potter and the Order of the Phoenix", "J. K. Rowling", 	766, false);
 
-let myLibrary = [book1, book2, book3, book4, book5];
+let myLibrary = [book1, book2, book3, book4];
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -63,6 +62,10 @@ function displayBook(book) {
   const statusButton = document.createElement("button");
   statusButton.textContent = book.read ? "read" : "not read";
   statusButton.style.backgroundColor = !book.read ? "var(--blue-color)" : "";
+  if (!book.read) {
+    statusButton.addEventListener("mouseenter", () => {statusButton.style.backgroundColor = "#2a7dad"});
+    statusButton.addEventListener("mouseleave", () => {statusButton.style.backgroundColor = "var(--blue-color)"});
+  }
   statusButton.classList.add("status-button");
   statusButton.dataset.bookIndex = bookIndex;
   statusButton.addEventListener("click", chageBookStatus);
@@ -173,7 +176,6 @@ function clearForm() {
 }
 
 // WEB STORAGE API
-
 function saveData() {
   localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
 }
