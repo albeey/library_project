@@ -3,6 +3,12 @@
   padding: 0;
 }
 
+:root {
+  --red-color: #d14031;
+  --green-color: #64d131;
+  --blue-color: #3194d1;
+}
+
 body {
   background-color: #ececec;
   display: flex;
@@ -32,13 +38,13 @@ body {
   text-transform: uppercase;
   letter-spacing: .35em;
   font-weight: 400;
-  background-color: #d14031;
+  background-color: var(--red-color);
   color: #fff;
   border: 1px solid transparent;
 }
 
 .add-book-bttn {
-  width: 256px;
+  width: 235px;
 }
 
 .submit-book {
@@ -48,6 +54,7 @@ body {
 
 .submit-book:hover, .add-book-bttn:hover {
   background-color: #ad362a;
+  cursor: pointer;
 }
 
 /* LIBRARY CONTAINER */
@@ -72,9 +79,17 @@ li.book {
   height: 325px;
 }
 
-.book-cover button{
-  background-color: #d14031;
-  /* width: 75px; */
+.book-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  position: relative;
+  top: 10%;
+}
+
+.book-buttons-container button{
+  width: 42.5%;
   height: 30px;
   letter-spacing: .35em;
   font-family: "Josefin Sans",sans-serif;
@@ -82,10 +97,16 @@ li.book {
   text-transform: uppercase;
   color: #fff;
   line-height: 33px;
-  padding: 0 16px;
   border: 0;
-  position: relative;
-  /* top: 100px; */
+  cursor: pointer;
+}
+
+.remove-button {
+  background-color: var(--red-color);
+}
+
+.status-button {
+  background-color: var(--green-color);
 }
 
 .book-info {
@@ -171,4 +192,39 @@ form {
 label {
   font-size: 19px;
   padding: 10px 0;
+}
+
+/* STATUS BUTTON TOOLTIP */
+
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgba(0, 0, 0, .5);
+  color: #fff;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  top: -1px;
+  left: 46%;
+  font-size: 8px;
+  letter-spacing: 2px;
+
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent rgba(0, 0, 0, .5) transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }

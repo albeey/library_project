@@ -16,6 +16,10 @@ function Book(title, author, pages, read) {
   this.cover = generateCover();
 }
 
+Book.prototype.changeStatus = function() {
+  this.read = !this.read;
+}
+
 function addBookToLibrary(entry) {
   const read = entry["book-status"] === "read";
 
@@ -36,12 +40,14 @@ function updateLibrary() {
 
 // Create book on DOM
 function displayBook(book) {
+  const bookIndex = myLibrary.indexOf(book);
+
   // Unordered list
   const ul = document.querySelector(".book-list");
 
   // Create list item
   const li = document.createElement("li");
-  li.dataset.bookIndex = myLibrary.indexOf(book);
+  li.dataset.bookIndex = bookIndex;
   li.classList.add("book");
   ul.appendChild(li);
   
@@ -51,19 +57,29 @@ function displayBook(book) {
   bookCover.style.background = book.cover;
   li.appendChild(bookCover);
 
-  // // Buttons Container
-  // const coverButtonsContainer = document.createElement("div");
-  // coverButtonsContainer.classList.add("book-buttons-container");
-  // bookCover.appendChild(coverButtonsContainer);
+  // Buttons Container
+  const coverButtonsContainer = document.createElement("div");
+  coverButtonsContainer.classList.add("book-buttons-container");
+  bookCover.appendChild(coverButtonsContainer);
+
+  // Book status button
+  const statusButton = document.createElement("button");
+  const bookStatus = book.read ? ["read", "unread"] : ["not read", "read"];
+  statusButton.innerHTML = `${bookStatus[0]}<span class="tooltiptext">mark as ${bookStatus[1]}</span>`;
+  statusButton.style.backgroundColor = !book.read ? "var(--blue-color)" : "";
+  statusButton.classList.add("status-button");
+  statusButton.classList.add("tooltip"); //
+  statusButton.dataset.bookIndex = bookIndex;
+  statusButton.addEventListener("click", chageBookStatus);
+  coverButtonsContainer.appendChild(statusButton);
 
   // Remove button
   const removeButton = document.createElement("button");
   removeButton.textContent = "remove";
   removeButton.classList.add("remove-button");
-  removeButton.dataset.bookIndex = myLibrary.indexOf(book);
+  removeButton.dataset.bookIndex = bookIndex;
   removeButton.addEventListener("click", removeBook);
-  // coverButtonsContainer.appendChild(removeButton)
-  bookCover.appendChild(removeButton);
+  coverButtonsContainer.appendChild(removeButton);
 
   // Create book-info div
   const bookInfo = document.createElement("div");
@@ -90,9 +106,22 @@ function displayBook(book) {
 }
 
 function removeBook() {
-  const removeBookAtIndex = this.dataset.bookIndex;
+  const bookIdx = this.dataset.bookIndex;
 
-  myLibrary.splice(removeBookAtIndex, 1);
+  myLibrary.splice(bookIdx, 1);
+  updateLibrary();
+}
+
+function chageBookStatus() {
+  const bookIdx = this.dataset.bookIndex;
+  const currentStatus = myLibrary[bookIdx].read
+  
+  this.style.backgroundColor = (currentStatus) ? "var(--blue-color)" : "var(--green-color)";
+  const bookStatus = currentStatus ? ["read", "unread"] : ["not read", "read"];
+  this.innerHTML = `${bookStatus[0]}<span class="tooltiptext">mark as ${bookStatus[1]}</span>`;
+
+  myLibrary[bookIdx].changeStatus();
+  
   updateLibrary();
 }
 
