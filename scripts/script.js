@@ -16,7 +16,7 @@ function Book(title, author, pages, read) {
 function addBookToLibrary(entry) {
   const read = entry["book-status"] === "read";
 
-  const newBook = new Book(entry["book-title"], entry["book-author"], entry["book-pages"], read)
+  const newBook = new Book(entry["book-title"], entry["book-author"], entry["book-pages"], read);
   myLibrary.push(newBook);
 
   displayBook(newBook);
@@ -27,7 +27,7 @@ function updateLibrary() {
   const bookList = document.querySelector(".book-list");
   bookList.textContent = "";
 
-  myLibrary.forEach(book => {
+  myLibrary.forEach((book) => {
     displayBook(book);
   });
 
@@ -46,7 +46,7 @@ function displayBook(book) {
   li.dataset.bookIndex = bookIndex;
   li.classList.add("book");
   ul.appendChild(li);
-  
+
   // Create book-cover div
   const bookCover = document.createElement("div");
   bookCover.classList.add("book-cover");
@@ -63,8 +63,12 @@ function displayBook(book) {
   statusButton.textContent = book.read ? "read" : "not read";
   statusButton.style.backgroundColor = !book.read ? "var(--blue-color)" : "";
   if (!book.read) {
-    statusButton.addEventListener("mouseenter", () => {statusButton.style.backgroundColor = "#2a7dad"});
-    statusButton.addEventListener("mouseleave", () => {statusButton.style.backgroundColor = "var(--blue-color)"});
+    statusButton.addEventListener("mouseenter", () => {
+      statusButton.style.backgroundColor = "#2a7dad";
+    });
+    statusButton.addEventListener("mouseleave", () => {
+      statusButton.style.backgroundColor = "var(--blue-color)";
+    });
   }
   statusButton.classList.add("status-button");
   statusButton.dataset.bookIndex = bookIndex;
@@ -112,13 +116,13 @@ function removeBook() {
 
 function chageBookStatus() {
   const bookIdx = this.dataset.bookIndex;
-  const currentStatus = myLibrary[bookIdx].read
+  const currentStatus = myLibrary[bookIdx].read;
 
-  this.style.backgroundColor = (currentStatus) ? "var(--blue-color)" : "var(--green-color)";
+  this.style.backgroundColor = currentStatus ? "var(--blue-color)" : "var(--green-color)";
   this.textContent = currentStatus ? "read" : "read";
 
   myLibrary[bookIdx].read = !myLibrary[bookIdx].read;
-  
+
   updateLibrary();
 }
 
@@ -136,15 +140,15 @@ function generateRgbColor() {
     color = Math.floor(Math.random() * (255 - 0 + 1) + 0); // generates a random num between 0-255
     rgb.push(color);
   }
-  
-  return rgb
+
+  return rgb;
 }
 
 // MODAL
 const modal = document.querySelector("#myModal");
 
 const addBookButton = document.querySelector(".add-book-bttn");
-addBookButton.addEventListener("click", () => modal.style.display = "block");
+addBookButton.addEventListener("click", () => (modal.style.display = "block"));
 
 const closeModalButton = document.querySelector(".close");
 closeModalButton.addEventListener("click", closeModal);
@@ -156,7 +160,7 @@ function closeModal() {
 // FORM
 const form = document.forms[0];
 
-form.addEventListener("submit", function(event) {
+form.addEventListener("submit", function (event) {
   event.preventDefault();
   const formData = new FormData(this);
   const entries = formData.entries();
@@ -169,7 +173,7 @@ form.addEventListener("submit", function(event) {
 
 function clearForm() {
   const inputField = document.querySelectorAll(".input-field");
-  inputField.forEach(input => input.value = "");
+  inputField.forEach((input) => (input.value = ""));
 
   const inputSelect = document.querySelector(".input-select");
   inputSelect.selectedIndex = 0;
@@ -181,7 +185,7 @@ function saveData() {
 }
 
 function getData() {
-  if(localStorage.myLibrary) {
+  if (localStorage.myLibrary) {
     let objStr = localStorage.getItem("myLibrary");
     myLibrary = JSON.parse(objStr);
   }
